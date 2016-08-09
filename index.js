@@ -17,12 +17,12 @@ class LightUp extends React.Component {
 	fetch('https://api.lifx.com/v1/lights/label:'+light['label']+'/toggle', myInit).then(function (response) {
 	    if (response.ok) {
 		this.setState(Object.assign({}, this.state, {
-		    lights: this.state.lights.map(function(YOLO) {
-			if (YOLO !== light) {
-			    return YOLO;
+		    lights: this.state.lights.map(function(originalLight) {
+			if (originalLight !== light) {
+			    return originalLight;
 			}
-			return Object.assign({}, YOLO, {
-			    power: YOLO.power==='off' ? 'on' : 'off',
+			return Object.assign({}, originalLight, {
+			    power: originalLight.power==='off' ? 'on' : 'off',
 			});
 		    })
 		}));
