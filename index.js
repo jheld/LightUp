@@ -5,10 +5,11 @@ import ReactDOM from 'react-dom';
 class LightUp extends React.Component {
     constructor(props) {
 	super(props)
-	this.state = {'lights': [], 'token': 'change_me'};
+	this.token = 'change_me';
+	this.state = {'lights': []};
     }
     toggleClick(light) {
-	var myHeaders = new Headers({"Authorization": "Bearer "+this.state.token});
+	var myHeaders = new Headers({"Authorization": "Bearer "+this.token});
 	var myInit = { method: 'POST',
 		       headers: myHeaders,
 		       mode: 'cors',
@@ -35,7 +36,7 @@ class LightUp extends React.Component {
 	}.bind(this));
     }
     componentDidMount() {
-	var myHeaders = new Headers({"Authorization": "Bearer "+this.state.token});
+	var myHeaders = new Headers({"Authorization": "Bearer "+this.token});
 	var myInit = { method: 'GET',
 		       headers: myHeaders,
 		       mode: 'cors',
@@ -43,7 +44,7 @@ class LightUp extends React.Component {
 	fetch('https://api.lifx.com/v1/lights/all', {headers: myHeaders}).then(function(response) {
 	    return response.json();
 	}).then(function(json) {
-	    this.setState({lights: json, token: this.state.token});
+	    this.setState({lights: json});
 	}.bind(this)).catch(function(err) {
 	    // Error :(
 	    console.log(err);
